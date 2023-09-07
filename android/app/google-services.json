@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "941669966890",
+    "project_id": "betterbin-80ecf",
+    "storage_bucket": "betterbin-80ecf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941669966890:android:d215d106dd5b152ffa4f53",
+        "android_client_info": {
+          "package_name": "com.example.betterbin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941669966890-epersk0bir4rbsc5q2k5touakqb8nsfe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFju67wJxf5lOoer_pYEF75UlmG843P4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941669966890-epersk0bir4rbsc5q2k5touakqb8nsfe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
