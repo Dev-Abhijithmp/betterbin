@@ -57,6 +57,7 @@ class HomepageState extends State<Homepage> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 3,
         title: Text("home"),

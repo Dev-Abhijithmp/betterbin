@@ -1,12 +1,22 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:betterbin/public/requestpage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geolocator/geolocator.dart';
 
-Future<Map<String, String>> addcomplaint(
-    List<String> types, String url, Position position) async {
+List<double> prices = [
+  30.0,
+  15.0,
+  20.0,
+  0.0,
+  0.0,
+];
+
+Future<Map<String, String>> addcomplaint(List<String> types, String url,
+    Position position, double totalPrice) async {
   try {
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
         .collection('user')
@@ -25,6 +35,7 @@ Future<Map<String, String>> addcomplaint(
       'status': "placed",
       'image': url,
       'phone': documentSnapshot.get('phone'),
+      'totalprice': totalPrice,
       'location': {
         'latitude': position.latitude,
         'longitude': position.longitude,
@@ -48,10 +59,12 @@ Future<Map<String, String>> addimagetostorage(File images) async {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     await FirebaseStorage.instance
-        .ref('complaintimages/${FirebaseAuth.instance.currentUser!.uid}${documentSnapshot.get('complaints')}')
+        .ref(
+            'complaintimages/${FirebaseAuth.instance.currentUser!.uid}${documentSnapshot.get('complaints')}')
         .putFile(images);
     String sample = await FirebaseStorage.instance
-        .ref('complaintimages/${FirebaseAuth.instance.currentUser!.uid}${documentSnapshot.get('complaints')}')
+        .ref(
+            'complaintimages/${FirebaseAuth.instance.currentUser!.uid}${documentSnapshot.get('complaints')}')
         .getDownloadURL();
 
     return {'status': "success", 'url': sample.toString()};
@@ -71,6 +84,15 @@ Future<Map<String, String>> removecomplaint(String complaintid) async {
   } on FirebaseException catch (e) {
     return {'status': e.message.toString()};
   }
+}
+
+double getTotal(List<double> data) {
+  double total = 0;
+  for (int i = 0; i < data.length; i++) {
+    total += (data[i] * prices[i]);
+  }
+
+  return total;
 }
 
 Future<Map<String, String?>> changephone(String uid, String phone) async {

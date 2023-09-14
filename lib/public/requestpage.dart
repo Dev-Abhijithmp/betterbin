@@ -1,20 +1,27 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'package:betterbin/authentication/loginpage.dart';
+import 'package:betterbin/public/bottombar.dart';
 import 'package:betterbin/public/functions.dart';
 import 'package:betterbin/utils/colors.dart';
 import 'package:betterbin/utils/fetchlocation.dart';
 import 'package:betterbin/utils/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Requestpage extends StatefulWidget {
-   final List<String> seleceteditems;
-  const Requestpage({Key? key, required this.seleceteditems}) : super(key: key);
+  List<String> seleceteditems;
+  Requestpage({
+    Key? key,
+    required this.seleceteditems,
+  }) : super(key: key);
 
   @override
   RequestpageState createState() =>
+
       // ignore: no_logic_in_create_state
       RequestpageState(seleceteditems: seleceteditems);
 }
@@ -24,14 +31,19 @@ Position? position;
 bool loading = false;
 bool show = true;
 
+double totalprice = 0;
+TextEditingController priceController = TextEditingController();
+List<double> selectedPrices = [0, 0, 0, 0, 0];
+
 class RequestpageState extends State<Requestpage> {
   RequestpageState({required this.seleceteditems});
-  late final List<String> seleceteditems;
+  late List<String> seleceteditems;
   @override
   Widget build(BuildContext context) {
     void pickImagecamera() async {
       final picker = ImagePicker();
-      XFile? pickedImage = await picker.pickImage(source: ImageSource.camera);
+      XFile? pickedImage =
+          await picker.pickImage(source: ImageSource.camera, imageQuality: 10);
       File? pickedImageFile;
       pickedImage == null
           ? pickedImageFile = null
@@ -50,6 +62,7 @@ class RequestpageState extends State<Requestpage> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: backgroungcolor,
       appBar: AppBar(
         title: const Text("Request page"),
@@ -57,7 +70,7 @@ class RequestpageState extends State<Requestpage> {
       body: Column(
         children: [
           Container(
-              height: 200,
+              height: 180,
               width: double.infinity,
               margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(border: Border.all(color: green)),
@@ -114,28 +127,74 @@ class RequestpageState extends State<Requestpage> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
+              SizedBox(
                 height: 200,
-                width: double.infinity,
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(border: Border.all(color: green)),
                 child: show == true
                     ? ListView.builder(
                         itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              seleceteditems[index],
-                              style: const TextStyle(
-                                fontSize: 20,
+                          return InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  content: SizedBox(
+                                    width: 400,
+                                    height: 200,
+                                    child: TextField(
+                                      controller: priceController,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      keyboardType: TextInputType.number,
+                                      decoration:
+                                          InputDecoration(border: out()),
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text("cancel")),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          selectedPrices[index] = double.parse(
+                                              priceController.text.toString());
+                                          print(
+                                              priceController.text.toString());
+
+                                          setState(() {});
+                                          print(selectedPrices[index]);
+                                          totalprice = getTotal(selectedPrices);
+                                          priceController.clear();
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text("ok"))
+                                  ],
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "${seleceteditems[index]} : ${selectedPrices[index]} KG",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           );
                         },
                         itemCount: seleceteditems.length,
                       )
                     : Container(),
+              ),
+              Text(
+                "$totalprice Rs",
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ],
           ),
@@ -147,44 +206,58 @@ class RequestpageState extends State<Requestpage> {
                     builder: (context) =>
                         alert("Error", "Please add image", context));
               } else {
-                setState(() {
-                  loading = true;
-                });
-                position = await determinePosition();
+                bool containweight = true;
+                for (var i = 0; i < seleceteditems.length; i++) {
+                  if (selectedPrices[i] == 0) {
+                    containweight = false;
+                  }
+                }
 
-                Map<String, String> flag =
-                    await addimagetostorage(_pickedImage!);
-                if (flag['status'] == "success") {
-                  Map<String, String> flag1 = await addcomplaint(
-                    seleceteditems,
-                    flag['url']!,
-                    position!,
-                  );
-                  if (flag1['status'] == "success") {
+                if (!containweight) {
+                  showDialog(
+                      context: context,
+                      builder: (context) =>
+                          alert("Error", "Please add weight", context));
+                } else {
+                  setState(() {
+                    loading = true;
+                  });
+                  position = await determinePosition();
 
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            alert("success", "Complaint registered", context));
-                    setState(() {
-                      _pickedImage = null;
-                      show = false;
-                    });
+                  Map<String, String> flag =
+                      await addimagetostorage(_pickedImage!);
+                  if (flag['status'] == "success") {
+                    Map<String, String> flag1 = await addcomplaint(
+                      seleceteditems,
+                      flag['url']!,
+                      position!,
+                      totalprice,
+                    );
+                    if (flag1['status'] == "success") {
+                      showDialog(
+                          context: context,
+                          builder: (context) => alert("success",
+                              "Request send Successfully ", context));
+                      setState(() {
+                        _pickedImage = null;
+                        show = false;
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) =>
+                              alert("error", flag1['status']!, context));
+                    }
                   } else {
                     showDialog(
                         context: context,
                         builder: (context) =>
-                            alert("error", flag1['status']!, context));
+                            alert("error", flag['status']!, context));
                   }
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (context) =>
-                          alert("error", flag['status']!, context));
+                  setState(() {
+                    loading = false;
+                  });
                 }
-                setState(() {
-                  loading = false;
-                });
               }
             },
             child: Container(
@@ -196,7 +269,9 @@ class RequestpageState extends State<Requestpage> {
                 color: green,
               ),
               child: Center(
-                child: loading == true ? const Text("Loading...") : const Text("Submit"),
+                child: loading == true
+                    ? const Text("Loading...")
+                    : const Text("Submit"),
               ),
             ),
           ),
