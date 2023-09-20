@@ -10,11 +10,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Requestpage extends StatefulWidget {
-  List<String> seleceteditems;
-  Requestpage({
+  const Requestpage({
     Key? key,
     required this.seleceteditems,
   }) : super(key: key);
+  final List<String> seleceteditems;
 
   @override
   RequestpageState createState() =>
