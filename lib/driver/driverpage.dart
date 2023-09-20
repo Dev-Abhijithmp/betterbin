@@ -18,7 +18,7 @@ class Driverpage extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroungcolor,
       appBar: AppBar(
-        title: const  Text("Betterbin staff"),
+        title: const Text("Betterbin staff"),
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
@@ -32,7 +32,7 @@ class Driverpage extends StatelessWidget {
             if (doc.get('isverified') == true) {
               return Column(
                 children: [
-                 const  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   profiletile("Name", doc.get('name')),
@@ -49,13 +49,13 @@ class Driverpage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 50,
-                      margin:
-                        const   EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: green,
                       ),
-                      child:const  Center(child: Text("View complaints")),
+                      child: const Center(child: Text("View complaints")),
                     ),
                   ),
                   InkWell(
@@ -68,8 +68,8 @@ class Driverpage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 50,
-                      margin:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: green,
@@ -87,8 +87,8 @@ class Driverpage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 50,
-                      margin:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: green,
@@ -103,8 +103,8 @@ class Driverpage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 50,
-                      margin:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: green,
@@ -140,8 +140,8 @@ class Driverpage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       height: 50,
-                      margin:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: green,

@@ -1,4 +1,3 @@
-
 import 'package:betterbin/commonpages/loadingpage.dart';
 import 'package:betterbin/commonpages/somethingwentwrong.dart';
 import 'package:betterbin/public/functions.dart';
@@ -46,7 +45,7 @@ class Viewcomplaintpublic extends StatelessWidget {
 Widget singlecomplaintitem(DocumentSnapshot doc, context) {
   List<dynamic> wastetypes = doc.get('wastetypes');
   return Container(
-    height: 250,
+    height: 270,
     width: double.infinity,
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
     padding: const EdgeInsets.all(10),
@@ -62,7 +61,7 @@ Widget singlecomplaintitem(DocumentSnapshot doc, context) {
         Row(
           children: [
             Container(
-              height: 160,
+              height: 200,
               width: 120,
               margin: const EdgeInsets.only(right: 20),
               decoration: BoxDecoration(

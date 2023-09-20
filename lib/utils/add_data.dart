@@ -18,6 +18,6 @@ Future<void> createuserprofile(
     'role': role,
     'complaints': 0,
     'phone': phone,
-    'isveryfied': false,
+    'isverified': false,
   });
 }

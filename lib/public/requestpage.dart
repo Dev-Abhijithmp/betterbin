@@ -1,8 +1,5 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:io';
 import 'package:betterbin/authentication/loginpage.dart';
-import 'package:betterbin/public/bottombar.dart';
 import 'package:betterbin/public/functions.dart';
 import 'package:betterbin/utils/colors.dart';
 import 'package:betterbin/utils/fetchlocation.dart';
@@ -13,7 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Requestpage extends StatefulWidget {
-  List<String> seleceteditems;
+ List<String> seleceteditems;
   Requestpage({
     Key? key,
     required this.seleceteditems,
@@ -160,8 +157,7 @@ class RequestpageState extends State<Requestpage> {
                                         onPressed: () {
                                           selectedPrices[index] = double.parse(
                                               priceController.text.toString());
-                                          print(
-                                              priceController.text.toString());
+                                               print(priceController.text.toString());
 
                                           setState(() {});
                                           print(selectedPrices[index]);
@@ -234,6 +230,7 @@ class RequestpageState extends State<Requestpage> {
                       totalprice,
                     );
                     if (flag1['status'] == "success") {
+                      // ignore: use_build_context_synchronously
                       showDialog(
                           context: context,
                           builder: (context) => alert("success",
@@ -243,12 +240,14 @@ class RequestpageState extends State<Requestpage> {
                         show = false;
                       });
                     } else {
+                      // ignore: use_build_context_synchronously
                       showDialog(
                           context: context,
                           builder: (context) =>
                               alert("error", flag1['status']!, context));
                     }
                   } else {
+                    // ignore: use_build_context_synchronously
                     showDialog(
                         context: context,
                         builder: (context) =>
