@@ -15,7 +15,7 @@ class Viewcomplaintpublic extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Complaints"),
+        title: const Text("Requests"),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

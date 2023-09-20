@@ -10,7 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Requestpage extends StatefulWidget {
- List<String> seleceteditems;
+  List<String> seleceteditems;
   Requestpage({
     Key? key,
     required this.seleceteditems,
@@ -40,7 +40,7 @@ class RequestpageState extends State<Requestpage> {
     void pickImagecamera() async {
       final picker = ImagePicker();
       XFile? pickedImage =
-          await picker.pickImage(source: ImageSource.camera, imageQuality: 10);
+          await picker.pickImage(source: ImageSource.gallery, imageQuality: 5);
       File? pickedImageFile;
       pickedImage == null
           ? pickedImageFile = null
@@ -157,7 +157,8 @@ class RequestpageState extends State<Requestpage> {
                                         onPressed: () {
                                           selectedPrices[index] = double.parse(
                                               priceController.text.toString());
-                                               print(priceController.text.toString());
+                                          print(
+                                              priceController.text.toString());
 
                                           setState(() {});
                                           print(selectedPrices[index]);

@@ -24,7 +24,7 @@ class ViewcomplaintsByStaffState extends State<ViewcomplaintsByStaff> {
     return Scaffold(
       backgroundColor: backgroungcolor,
       appBar: AppBar(
-        title: const Text("View complaints"),
+        title: const Text("View request"),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('complaints').snapshots(),
@@ -77,8 +77,8 @@ class ViewcomplaintsByStaffState extends State<ViewcomplaintsByStaff> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child:
-                                    Text("phone :  ${data[index].get('phone')}"),
+                                child: Text(
+                                    "phone :  ${data[index].get('phone')}"),
                               ),
                               const Padding(
                                 padding: EdgeInsets.all(8.0),

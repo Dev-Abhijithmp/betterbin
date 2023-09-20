@@ -18,7 +18,7 @@ class Driverpage extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroungcolor,
       appBar: AppBar(
-        title: const Text("Betterbin staff"),
+        title: const Text("Betterbin Driver"),
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
@@ -55,7 +55,7 @@ class Driverpage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                         color: green,
                       ),
-                      child: const Center(child: Text("View complaints")),
+                      child: const Center(child: Text("View requests")),
                     ),
                   ),
                   InkWell(

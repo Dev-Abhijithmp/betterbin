@@ -55,7 +55,7 @@ class Adminpage extends StatelessWidget {
                 color: blue,
               ),
               child: const Center(
-                child: Text("View Complaints"),
+                child: Text("View Requests"),
               ),
             ),
           ),

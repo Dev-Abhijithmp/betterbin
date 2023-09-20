@@ -2,7 +2,7 @@ import 'package:betterbin/authentication/authenticate.dart';
 import 'package:betterbin/commonpages/loadingpage.dart';
 import 'package:betterbin/commonpages/somethingwentwrong.dart';
 import 'package:betterbin/commonpages/changephonenumber.dart';
-import 'package:betterbin/public/viewcomplaints.dart';
+import 'package:betterbin/public/viewrequests.dart';
 import 'package:betterbin/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,13 +55,13 @@ class Profilepage extends StatelessWidget {
                     child: Container(
                       height: 50,
                       width: double.infinity,
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: green),
                       child: const Center(
-                        child: Text("View complaints"),
+                        child: Text("View requests"),
                       ),
                     ),
                   ),
@@ -76,8 +76,8 @@ class Profilepage extends StatelessWidget {
                     child: Container(
                       height: 50,
                       width: double.infinity,
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: green),
@@ -93,8 +93,8 @@ class Profilepage extends StatelessWidget {
                     child: Container(
                       height: 50,
                       width: double.infinity,
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: green),
