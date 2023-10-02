@@ -9,7 +9,6 @@ List<double> prices = [
   15.0,
   20.0,
   0.0,
-  0.0,
 ];
 
 Future<Map<String, String>> addcomplaint(List<String> types, String url,

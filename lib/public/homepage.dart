@@ -34,11 +34,6 @@ List<Map<String, dynamic>> homewidgetdata = [
     'images': "images/food.png",
     'isselected': false,
   },
-  {
-    'title': "Other",
-    'images': "images/other.png",
-    'isselected': false,
-  },
 ];
 
 class HomepageState extends State<Homepage> {
@@ -128,88 +123,70 @@ class HomepageState extends State<Homepage> {
               ),
             ],
           ),
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (homewidgetdata[4]['isselected'] == true) {
-                    changeselectionstatefalse(4);
-                  } else {
-                    changeselectionstatetrue(4);
+          InkWell(
+            onTap: () {
+              for (var item in homewidgetdata) {
+                if (item['isselected'] == true) {
+                  setState(() {
+                    isselected = true;
+                  });
+                }
+              }
+              if (homewidgetdata[0]['isselected'] == false &&
+                  homewidgetdata[1]['isselected'] == false &&
+                  homewidgetdata[2]['isselected'] == false &&
+                  homewidgetdata[3]['isselected'] == false) {
+                setState(() {
+                  isselected = false;
+                });
+              }
+              if (isselected == false) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text("Error"),
+                          content: Text("Please Select alteast one item"),
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("ok"))
+                          ],
+                        ));
+              } else {
+                List<String> selecteditems = [];
+                for (var item in homewidgetdata) {
+                  if (item['isselected'] == true) {
+                    selecteditems.add(item['title']);
                   }
-                },
-                child: singlegriditem(
-                    homewidgetdata[4]['title'],
-                    homewidgetdata[4]['images'],
-                    homewidgetdata[4]['isselected']),
-              ),
-              InkWell(
-                onTap: () {
-                  for (var item in homewidgetdata) {
-                    if (item['isselected'] == true) {
-                      setState(() {
-                        isselected = true;
-                      });
-                    }
-                  }
-                  if (homewidgetdata[0]['isselected'] == false &&
-                      homewidgetdata[1]['isselected'] == false &&
-                      homewidgetdata[2]['isselected'] == false &&
-                      homewidgetdata[3]['isselected'] == false &&
-                      homewidgetdata[4]['isselected'] == false) {
-                    setState(() {
-                      isselected = false;
-                    });
-                  }
-                  if (isselected == false) {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text("Error"),
-                              content: Text("Please Select alteast one item"),
-                              actions: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text("ok"))
-                              ],
-                            ));
-                  } else {
-                    List<String> selecteditems = [];
-                    for (var item in homewidgetdata) {
-                      if (item['isselected'] == true) {
-                        selecteditems.add(item['title']);
-                      }
-                    }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => Requestpage(
-                                  seleceteditems: selecteditems,
-                                )));
-                  }
-                },
+                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Requestpage(
+                              seleceteditems: selecteditems,
+                            )));
+              }
+            },
+            child: Transform.rotate(
+              angle: 40,
+              child: Container(
+                width: 90,
+                height: 90,
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: green,
+                ),
                 child: Transform.rotate(
-                  angle: 40,
-                  child: Container(
-                    width: 90,
-                    height: 90,
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: green,
-                    ),
-                    child: Transform.rotate(
-                      angle: -40,
-                      child: Center(
-                        child: Text("Next"),
-                      ),
-                    ),
+                  angle: -40,
+                  child: Center(
+                    child: Text("Next"),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
