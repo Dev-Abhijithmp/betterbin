@@ -21,8 +21,20 @@ class Signuppage extends StatefulWidget {
 }
 
 String? value;
+bool visib1 = true;
+bool visib2 = true;
 
 class SignuppageState extends State<Signuppage> {
+  void changevisib1() {
+    visib1 = !visib1;
+    setState(() {});
+  }
+
+  void changevisib2() {
+    visib2 = !visib2;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -37,7 +49,7 @@ class SignuppageState extends State<Signuppage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-             const  SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Image.asset(
@@ -46,7 +58,7 @@ class SignuppageState extends State<Signuppage> {
                 height: 150,
                 width: 150,
               ),
-             const  SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               const Text(
@@ -54,7 +66,7 @@ class SignuppageState extends State<Signuppage> {
                 style: TextStyle(
                     color: green, fontSize: 30, fontWeight: FontWeight.bold),
               ),
-             const  SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               SizedBox(
@@ -71,7 +83,7 @@ class SignuppageState extends State<Signuppage> {
                   ),
                 ),
               ),
-            const   SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -89,7 +101,7 @@ class SignuppageState extends State<Signuppage> {
                   ),
                 ),
               ),
-             const  SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -117,15 +129,23 @@ class SignuppageState extends State<Signuppage> {
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: visib1,
                   controller: controllerpass,
                   decoration: InputDecoration(
-                    labelText: "Password",
-                    border: out(),
-                    enabledBorder: out(),
-                    disabledBorder: out(),
-                    focusedBorder: out(),
-                  ),
+                      labelText: "Password",
+                      border: out(),
+                      enabledBorder: out(),
+                      disabledBorder: out(),
+                      focusedBorder: out(),
+                      suffix: visib1
+                          ? IconButton(
+                              icon: Icon(Icons.visibility),
+                              onPressed: () => changevisib1(),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.visibility_off),
+                              onPressed: () => changevisib1(),
+                            )),
                 ),
               ),
               const SizedBox(
@@ -138,12 +158,20 @@ class SignuppageState extends State<Signuppage> {
                   obscureText: true,
                   controller: controllerpass1,
                   decoration: InputDecoration(
-                    labelText: "verify password",
-                    border: out(),
-                    enabledBorder: out(),
-                    disabledBorder: out(),
-                    focusedBorder: out(),
-                  ),
+                      labelText: "verify password",
+                      border: out(),
+                      enabledBorder: out(),
+                      disabledBorder: out(),
+                      focusedBorder: out(),
+                      suffix: visib2
+                          ? IconButton(
+                              icon: Icon(Icons.visibility),
+                              onPressed: () => changevisib2(),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.visibility_off),
+                              onPressed: () => changevisib2(),
+                            )),
                 ),
               ),
               const SizedBox(

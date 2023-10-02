@@ -2,6 +2,7 @@ import 'package:betterbin/authentication/authenticate.dart';
 import 'package:betterbin/commonpages/loadingpage.dart';
 import 'package:betterbin/commonpages/somethingwentwrong.dart';
 import 'package:betterbin/commonpages/changephonenumber.dart';
+import 'package:betterbin/public/pricelist.dart';
 import 'package:betterbin/public/viewrequests.dart';
 import 'package:betterbin/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class Profilepage extends StatelessWidget {
   const Profilepage({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,26 @@ class Profilepage extends StatelessWidget {
                   profiletile("Name", data.get('name')),
                   profiletile("Phonenumber", data.get('phone')),
                   profiletile("Email", data.get('email')),
-                  const SizedBox(
-                    height: 20,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const PricePage()));
+                    },
+                    child: Container(
+                      height: 45,
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: green),
+                      child: const Center(
+                        child: Text("View Prices"),
+                      ),
+                    ),
                   ),
                   InkWell(
                     onTap: () {
@@ -53,7 +73,7 @@ class Profilepage extends StatelessWidget {
                                   const Viewcomplaintpublic()));
                     },
                     child: Container(
-                      height: 50,
+                      height: 45,
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),
@@ -74,7 +94,7 @@ class Profilepage extends StatelessWidget {
                                   Changephone()));
                     },
                     child: Container(
-                      height: 50,
+                      height: 45,
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),
@@ -91,7 +111,7 @@ class Profilepage extends StatelessWidget {
                       signout();
                     },
                     child: Container(
-                      height: 50,
+                      height: 45,
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),

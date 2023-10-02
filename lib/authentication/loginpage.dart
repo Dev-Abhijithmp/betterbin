@@ -11,8 +11,20 @@ import 'package:flutter/services.dart';
 TextEditingController controlleremail = TextEditingController();
 TextEditingController controllerpassl = TextEditingController();
 
-class Loginpage extends StatelessWidget {
+class Loginpage extends StatefulWidget {
   const Loginpage({Key? key}) : super(key: key);
+
+  @override
+  State<Loginpage> createState() => _LoginpageState();
+}
+
+class _LoginpageState extends State<Loginpage> {
+  bool visib = true;
+
+  void changevisib() {
+    visib = !visib;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +81,23 @@ class Loginpage extends StatelessWidget {
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: visib,
                   controller: controllerpassl,
                   decoration: InputDecoration(
-                    labelText: "Password",
-                    border: out(),
-                    enabledBorder: out(),
-                    disabledBorder: out(),
-                    focusedBorder: out(),
-                  ),
+                      labelText: "Password",
+                      border: out(),
+                      enabledBorder: out(),
+                      disabledBorder: out(),
+                      focusedBorder: out(),
+                      suffix: visib
+                          ? IconButton(
+                              icon: Icon(Icons.visibility),
+                              onPressed: () => changevisib(),
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.visibility_off),
+                              onPressed: () => changevisib(),
+                            )),
                 ),
               ),
               const SizedBox(
@@ -147,7 +167,8 @@ class Loginpage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (BuildContext context) => const Signuppage()),
+                          builder: (BuildContext context) =>
+                              const Signuppage()),
                     );
                   },
                   child: const Text("Create new Account"))

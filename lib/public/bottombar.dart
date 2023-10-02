@@ -22,7 +22,7 @@ class BottombarpageState extends State<Bottombarpage> {
       });
     }
 
-    List<Widget> pages = [const Homepage(), const Profilepage()];
+    List<Widget> pages = [const Homepage(),  Profilepage()];
     return Scaffold(
         backgroundColor: backgroungcolor,
         body: pages[selectedindex],
