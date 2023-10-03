@@ -11,13 +11,17 @@ List<double> prices = [
   0.0,
 ];
 
-Future<Map<String, String>> addcomplaint(List<String> types, String url,
-    Position position, double totalPrice) async {
+Future<Map<String, String>> addcomplaint(List<Map<String, dynamic>> types,
+    String url, Position position, double totalPrice) async {
   try {
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
         .collection('user')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
+    List<String> stypes = [];
+    for (var element in types) {
+      stypes.add(element['title']);
+    }
 
     await FirebaseFirestore.instance
         .collection('complaints')
@@ -82,10 +86,10 @@ Future<Map<String, String>> removecomplaint(String complaintid) async {
   }
 }
 
-double getTotal(List<double> data) {
+double getTotal(List<double> data, List<Map<String, dynamic>> selecteditems) {
   double total = 0;
-  for (int i = 0; i < data.length; i++) {
-    total += (data[i] * prices[i]);
+  for (int i = 0; i < selecteditems.length; i++) {
+    total += (data[i] * selecteditems[i]['price']);
   }
 
   return total;

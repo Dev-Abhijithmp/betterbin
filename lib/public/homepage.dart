@@ -18,21 +18,25 @@ List<Map<String, dynamic>> homewidgetdata = [
     'title': "plastic",
     'images': "images/plastic.png",
     'isselected': false,
+    'price': 30,
   },
   {
     'title': "E-waste",
     'images': "images/ewaste.png",
     'isselected': false,
+    'price': 15,
   },
   {
     'title': "Scrap",
     'images': "images/scrap.png",
     'isselected': false,
+    'price': 20,
   },
   {
     'title': "Food",
     'images': "images/food.png",
     'isselected': false,
+    'price': 0,
   },
 ];
 
@@ -155,10 +159,10 @@ class HomepageState extends State<Homepage> {
                           ],
                         ));
               } else {
-                List<String> selecteditems = [];
+                List<Map<String, dynamic>> selecteditems = [];
                 for (var item in homewidgetdata) {
                   if (item['isselected'] == true) {
-                    selecteditems.add(item['title']);
+                    selecteditems.add(item);
                   }
                 }
                 Navigator.push(

@@ -14,13 +14,13 @@ class Requestpage extends StatefulWidget {
     Key? key,
     required this.seleceteditems,
   }) : super(key: key);
-  final List<String> seleceteditems;
+  final List<Map<String, dynamic>> seleceteditems;
 
   @override
   RequestpageState createState() =>
 
       // ignore: no_logic_in_create_state
-      RequestpageState(seleceteditems: seleceteditems);
+      RequestpageState();
 }
 
 File? _pickedImage;
@@ -33,8 +33,6 @@ TextEditingController priceController = TextEditingController();
 List<double> selectedPrices = [0, 0, 0, 0, 0];
 
 class RequestpageState extends State<Requestpage> {
-  RequestpageState({required this.seleceteditems});
-  late List<String> seleceteditems;
   @override
   Widget build(BuildContext context) {
     void pickImagecamera() async {
@@ -162,7 +160,8 @@ class RequestpageState extends State<Requestpage> {
 
                                           setState(() {});
                                           print(selectedPrices[index]);
-                                          totalprice = getTotal(selectedPrices);
+                                          totalprice = getTotal(selectedPrices,
+                                              widget.seleceteditems);
                                           priceController.clear();
                                           Navigator.pop(context);
                                         },
@@ -174,16 +173,16 @@ class RequestpageState extends State<Requestpage> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "${seleceteditems[index]} : ${selectedPrices[index]} KG",
+                                "${widget.seleceteditems[index]['title']}(${widget.seleceteditems[index]['price']} Rs per KG) : ${selectedPrices[index]} KG =${widget.seleceteditems[index]['price'] * selectedPrices[index]} Rs ",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 16,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                           );
                         },
-                        itemCount: seleceteditems.length,
+                        itemCount: widget.seleceteditems.length,
                       )
                     : Container(),
               ),
@@ -204,7 +203,7 @@ class RequestpageState extends State<Requestpage> {
                         alert("Error", "Please add image", context));
               } else {
                 bool containweight = true;
-                for (var i = 0; i < seleceteditems.length; i++) {
+                for (var i = 0; i < widget.seleceteditems.length; i++) {
                   if (selectedPrices[i] == 0) {
                     containweight = false;
                   }
@@ -225,7 +224,7 @@ class RequestpageState extends State<Requestpage> {
                       await addimagetostorage(_pickedImage!);
                   if (flag['status'] == "success") {
                     Map<String, String> flag1 = await addcomplaint(
-                      seleceteditems,
+                      widget.seleceteditems,
                       flag['url']!,
                       position!,
                       totalprice,
