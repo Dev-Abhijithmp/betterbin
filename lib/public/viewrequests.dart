@@ -65,7 +65,7 @@ Widget singlecomplaintitem(DocumentSnapshot doc, context) {
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Text(
-              "Estimated delivery on ${date.day}/${date.month}/${date.year}"),
+              "Estimated pickup on ${date.day}/${date.month}/${date.year}"),
         ),
         Row(
           children: [
