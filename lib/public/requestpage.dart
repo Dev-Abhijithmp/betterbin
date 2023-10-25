@@ -135,14 +135,27 @@ class RequestpageState extends State<Requestpage> {
                                   content: SizedBox(
                                     width: 400,
                                     height: 200,
-                                    child: TextField(
-                                      controller: priceController,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.digitsOnly
-                                      ],
-                                      keyboardType: TextInputType.number,
-                                      decoration:
-                                          InputDecoration(border: out()),
+                                    child: Form(
+                                      key: KeyClass.formKey,
+                                      child: TextFormField(
+                                        controller: priceController,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'please enter a value';
+                                          } else if (int.parse(value) > 5) {
+                                            return "Not allowed weight more than 5";
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        onChanged: (value) => KeyClass.formKey.currentState!.validate(),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly
+                                        ],
+                                        keyboardType: TextInputType.number,
+                                        decoration:
+                                            InputDecoration(border: out()),
+                                      ),
                                     ),
                                   ),
                                   actions: [
