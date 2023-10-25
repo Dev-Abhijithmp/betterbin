@@ -46,13 +46,14 @@ class RequestpageState extends State<Requestpage> {
 
       setState(() {
         _pickedImage = pickedImageFile;
+        show = true;
       });
       // widget.imagePickFn(pickedImageFile);
     }
-
     void removeImage() {
       setState(() {
         _pickedImage = null;
+        show = false;
       });
     }
 
@@ -148,7 +149,9 @@ class RequestpageState extends State<Requestpage> {
                                             return null;
                                           }
                                         },
-                                        onChanged: (value) => KeyClass.formKey.currentState!.validate(),
+                                        onChanged: (value) => KeyClass
+                                            .formKey.currentState!
+                                            .validate(),
                                         inputFormatters: [
                                           FilteringTextInputFormatter.digitsOnly
                                         ],
@@ -166,17 +169,23 @@ class RequestpageState extends State<Requestpage> {
                                         child: const Text("cancel")),
                                     ElevatedButton(
                                         onPressed: () {
-                                          selectedPrices[index] = double.parse(
-                                              priceController.text.toString());
-                                          print(
-                                              priceController.text.toString());
+                                          if (KeyClass.formKey.currentState!
+                                              .validate()) {
+                                            selectedPrices[index] =
+                                                double.parse(priceController
+                                                    .text
+                                                    .toString());
+                                            print(priceController.text
+                                                .toString());
 
-                                          setState(() {});
-                                          print(selectedPrices[index]);
-                                          totalprice = getTotal(selectedPrices,
-                                              widget.seleceteditems);
-                                          priceController.clear();
-                                          Navigator.pop(context);
+                                            setState(() {});
+                                            print(selectedPrices[index]);
+                                            totalprice = getTotal(
+                                                selectedPrices,
+                                                widget.seleceteditems);
+                                            priceController.clear();
+                                            Navigator.pop(context);
+                                          }
                                         },
                                         child: const Text("ok"))
                                   ],
@@ -199,12 +208,13 @@ class RequestpageState extends State<Requestpage> {
                       )
                     : Container(),
               ),
-              Text(
-                "$totalprice Rs",
-                style: const TextStyle(
-                  fontSize: 20,
+              if (show == true)
+                Text(
+                  "$totalprice Rs",
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-              ),
             ],
           ),
           InkWell(

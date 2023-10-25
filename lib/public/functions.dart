@@ -34,6 +34,7 @@ Future<Map<String, String>> addcomplaint(List<Map<String, dynamic>> types,
       'wastetypes': types,
       'status': "placed",
       'image': url,
+      'date':DateTime.now(),
       'phone': documentSnapshot.get('phone'),
       'totalprice': totalPrice,
       'location': {

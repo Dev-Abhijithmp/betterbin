@@ -44,8 +44,11 @@ class Viewcomplaintpublic extends StatelessWidget {
 
 Widget singlecomplaintitem(DocumentSnapshot doc, context) {
   List<dynamic> wastetypes = doc.get('wastetypes');
+  var date = DateTime.fromMillisecondsSinceEpoch(
+      doc.get('date').millisecondsSinceEpoch);
+  date = date.add(const Duration(days: 5));
   return Container(
-    height: 270,
+    height: 300,
     width: double.infinity,
     margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
     padding: const EdgeInsets.all(10),
@@ -53,10 +56,16 @@ Widget singlecomplaintitem(DocumentSnapshot doc, context) {
         borderRadius: const BorderRadius.only(topRight: Radius.circular(30)),
         border: Border.all(color: green)),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text("Id : ${doc.get('complaintid')}"),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+              "Estimated delivery on ${date.day}/${date.month}/${date.year}"),
         ),
         Row(
           children: [
@@ -92,7 +101,7 @@ Widget singlecomplaintitem(DocumentSnapshot doc, context) {
                     child: ListView.builder(
                       itemCount: wastetypes.length,
                       itemBuilder: (BuildContext context, int index1) {
-                        return Text(wastetypes[index1].toString());
+                        return Text(wastetypes[index1]['title'].toString());
                       },
                     ),
                   ),

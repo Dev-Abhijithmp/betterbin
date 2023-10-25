@@ -155,7 +155,7 @@ class SignuppageState extends State<Signuppage> {
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: TextFormField(
-                  obscureText: true,
+                  obscureText: visib2,
                   controller: controllerpass1,
                   decoration: InputDecoration(
                       labelText: "verify password",
