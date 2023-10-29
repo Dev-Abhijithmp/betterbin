@@ -122,12 +122,23 @@ class Driverpage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.3,
                   ),
                   const Center(
-                    child: Text(
-                      "Verification is not completed",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Verification is not completed ",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Contact admin to complete verification ",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(

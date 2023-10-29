@@ -31,83 +31,92 @@ class _LoginpageState extends State<Loginpage> {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: backgroungcolor,
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 130,
-              ),
-              Image.asset(
-                "images/recycle.jpg",
-                fit: BoxFit.fill,
-                height: 150,
-                width: 150,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "BetterBin",
-                style: TextStyle(
-                    color: green, fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              SizedBox(
-                height: 50,
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: TextFormField(
-                  controller: controlleremail,
-                  decoration: InputDecoration(
+      body: Form(
+        key: KeyClass.loginFormKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 90,
+            ),
+            Image.asset(
+              "images/recycle.jpg",
+              fit: BoxFit.fill,
+              height: 150,
+              width: 150,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "BetterBin",
+              style: TextStyle(
+                  color: green, fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            SizedBox(
+              height: 50,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: TextFormField(
+                controller: controlleremail,
+                decoration: InputDecoration(
                     labelText: "Email",
                     border: out(),
                     enabledBorder: out(),
                     disabledBorder: out(),
                     focusedBorder: out(),
-                  ),
-                ),
+                    errorBorder: out()),
               ),
-              const SizedBox(
-                height: 20,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 50),
+              height: 60,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: TextFormField(
+                obscureText: visib,
+                controller: controllerpassl,
+                onChanged: (value) =>
+                    KeyClass.loginFormKey.currentState?.validate(),
+                validator: (value) {
+                  if (value!.length < 6) {
+                    return "minmum 6 digit required";
+                  } else {
+                    return null;
+                  }
+                },
+                decoration: InputDecoration(
+                    labelText: "Password",
+                    border: out(),
+                    enabledBorder: out(),
+                    disabledBorder: out(),
+                    focusedBorder: out(),
+                    errorBorder: out(),
+                    errorStyle: TextStyle(),
+                    suffix: visib
+                        ? IconButton(
+                            icon: Icon(Icons.visibility),
+                            onPressed: () => changevisib(),
+                          )
+                        : IconButton(
+                            icon: const Icon(Icons.visibility_off),
+                            onPressed: () => changevisib(),
+                          )),
               ),
-              SizedBox(
-                height: 50,
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: TextFormField(
-                  obscureText: visib,
-                  controller: controllerpassl,
-                  decoration: InputDecoration(
-                      labelText: "Password",
-                      border: out(),
-                      enabledBorder: out(),
-                      disabledBorder: out(),
-                      focusedBorder: out(),
-                      suffix: visib
-                          ? IconButton(
-                              icon: Icon(Icons.visibility),
-                              onPressed: () => changevisib(),
-                            )
-                          : IconButton(
-                              icon: const Icon(Icons.visibility_off),
-                              onPressed: () => changevisib(),
-                            )),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () async {
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () async {
+                    if (KeyClass.loginFormKey.currentState!.validate()) {
                       if (controlleremail.text == "" ||
                           controllerpassl.text == "") {
                         showDialog(
@@ -127,53 +136,50 @@ class _LoginpageState extends State<Loginpage> {
                                   alert("Error", flag['status']!, context));
                         }
                       }
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(17),
-                          color: green),
-                      child: const Center(
-                        child: Text(
-                          "login",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(17), color: green),
+                    child: const Center(
+                      child: Text(
+                        "login",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    Forgotpage()));
-                      },
-                      child: const Text("Forgot password"))
-                ],
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const Signuppage()),
-                    );
-                  },
-                  child: const Text("Create new Account"))
-            ],
-          ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => Forgotpage()));
+                    },
+                    child: const Text("Forgot password"))
+              ],
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const Signuppage()),
+                  );
+                },
+                child: const Text("Create new Account"))
+          ],
         ),
       ),
     );

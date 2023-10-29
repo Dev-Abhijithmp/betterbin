@@ -18,6 +18,7 @@ class SigninoutState extends State<Signinout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: backgroungcolor,
       body: StreamBuilder(
           stream: changesign,
@@ -29,7 +30,7 @@ class SigninoutState extends State<Signinout> {
             } else if (snapshot.hasData) {
               return const Userswitcher();
             } else {
-              return  Loginpage();
+              return Loginpage();
             }
           }),
     );
